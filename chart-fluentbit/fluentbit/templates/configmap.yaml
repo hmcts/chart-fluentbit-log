@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Release.Name }}
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Flush         1
+        Log_Level     info
+        Daemon        off
+        Parsers_File  parsers-neuvector.conf
+        HTTP_Server   On
+        HTTP_Listen   0.0.0.0
+        HTTP_Port     2020
+    
+    @INCLUDE input-syslog-neuvector.conf
+    @INCLUDE output-azure.conf
+    #@INCLUDE output-stdout.conf
+  input-syslog-neuvector.conf: |
+    [INPUT]
+        Name   syslog
+        Mode   tcp
+        Listen 0.0.0.0
+        Port   5140
+        Parser syslog-neuvector
+        Tag    syslog.default
+  output-azure.conf: |
+    [OUTPUT]
+        Name        azure
+        Match       *
+        Log_Type    Neuvector
+        Customer_ID ${FLUENTBIT_AZURE_CUSTOMER_ID}
+        Shared_Key  ${FLUENTBIT_AZURE_SHARED_KEY}
+  output-stdout.conf: |
+    [OUTPUT]
+        Name        stdout
+        Match       *
+  parsers-neuvector.conf: |
+    [PARSER]
+        Name        syslog-neuvector
+        Format      regex
+        Regex       /^\<(?<priority>[0-9]+)\>(?<time>[^ Z]*)Z (?<host>[^ ]*) (?<ident>[a-zA-Z0-9_\/\.\-]*)(?:\[(?<pid>[0-9]+)\])?\:? *(?<full_message>(?:(?:notification=(?<notification>[^,]*))|(?:name=(?<name>[^,]*))|(?:level=(?<level>[^,]*))|(?:reported_timestamp=(?<reported_timestamp>[^,]*))|(?:reported_at=(?<reported_at>[^,]*))|(?:cluster_name=(?<cluster_name>[^,]*))|(?:host_id=(?<host_id>[^,]*))|(?:host_name=(?<host_name>[^,]*))|(?:controller_id=(?<controller_id>[^,]*))|(?:controller_name=(?<controller_name>[^,]*))|(?:enforcer_id=(?<enforcer_id>[^,]*))|(?:enforcer_name=(?<enforcer_name>[^,]*))|(?:workload_id=(?<workload_id>[^,]*))|(?:workload_name=(?<workload_name>[^,]*))|(?:workload_domain=(?<workload_domain>[^,]*))|(?:workload_image=(?<workload_image>[^,]*))|(?:category=(?<category>[^,]*))|(?:user=(?<user>[^,]*))|(?:user_roles=(?<user_roles>[^,]*))|(?:user_addr=(?<user_addr>[^,]*))|(?:user_session=(?<user_session>[^,]*))|(?:message=(?<message>[^,]*))|[^,=]+=[^,=]*|,+)*)$/
+        Time_Key    time
+        Time_Format %Y-%m-%dT%H:%M:%S
+        Time_Keep   On

@@ -1,0 +1,8 @@
+apiVersion: v1
+description: A Helm chart for HMTCS fluentbit-log
+name: fluentbit-log
+version: 0.0.1
+keywords:
+- fluentbit-log
+sources:
+  - https://github.com/hmcts/chart-fluentbit-log
