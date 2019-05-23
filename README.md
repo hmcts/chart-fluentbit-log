@@ -11,7 +11,7 @@ TBD
 
 ## Configuration
 
-The following table lists the configurable parameters of the CCD chart and their default values.
+
 
 TODO
 
