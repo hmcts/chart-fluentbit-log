@@ -2,6 +2,7 @@
 namespace: neuvector
 
 image:
+  registry: docker.io
   repository: fluent/fluent-bit
   tag: 1.0.0
   imagePullPolicy: IfNotPresent
