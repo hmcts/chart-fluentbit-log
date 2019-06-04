@@ -27,6 +27,7 @@ data:
         Port   5140
         Parser syslog-neuvector
         Tag    syslog.default
+{{- if .Values.enableAzurePlugin }}
   output-azure.conf: |
     [OUTPUT]
         Name        azure
@@ -34,6 +35,7 @@ data:
         Log_Type    Neuvector
         Customer_ID ${FLUENTBIT_AZURE_CUSTOMER_ID}
         Shared_Key  ${FLUENTBIT_AZURE_SHARED_KEY}
+{{- end }}
   output-stdout.conf: |
     [OUTPUT]
         Name        stdout
