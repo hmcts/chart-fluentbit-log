@@ -21,4 +21,4 @@ azure_log_workspace_id: <WORKSPACE_ID>
 
 azure_log_workspace_shared_key: <WORKSPACE_SHARED_KEY>
 
-enableSecret: false
+enableSecret: true
