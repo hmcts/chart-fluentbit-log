@@ -25,6 +25,7 @@ spec:
         command:
         - /fluent-bit/bin/fluent-bit
         - --config=/etc/fluent-bit/fluent-bit.conf
+{{- if .Values.enableAzurePlugin }}
         env:
         - name: FLUENTBIT_AZURE_CUSTOMER_ID
           valueFrom:
@@ -36,6 +37,7 @@ spec:
             secretKeyRef:
               name: {{ .Release.Name }}
               key: azure_log_workspace_shared_key
+{{- end }}
         ports:
         - name: syslog
           protocol: TCP
