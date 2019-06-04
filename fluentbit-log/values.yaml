@@ -24,3 +24,5 @@ azure_log_workspace_shared_key: <WORKSPACE_SHARED_KEY>
 enableSecret: false
 
 enableAzurePlugin: true
+
+enableStandardOutput: false

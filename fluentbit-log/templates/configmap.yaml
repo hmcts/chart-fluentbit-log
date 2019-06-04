@@ -17,7 +17,9 @@ data:
         HTTP_Port     2020
     
     @INCLUDE input-syslog-neuvector.conf
-    #@INCLUDE output-stdout.conf
+{{- if .Values.enableStandardOutput }}
+    @INCLUDE output-stdout.conf
+{{- end }}
 {{- if .Values.enableAzurePlugin }}
     @INCLUDE output-azure.conf
   output-azure.conf: |
