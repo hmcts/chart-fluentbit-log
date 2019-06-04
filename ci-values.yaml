@@ -1,5 +1,5 @@
 
-namespace: default
+namespace: chart-tests
 
 image:
   registry: docker.io
