@@ -17,17 +17,9 @@ data:
         HTTP_Port     2020
     
     @INCLUDE input-syslog-neuvector.conf
-    @INCLUDE output-azure.conf
     #@INCLUDE output-stdout.conf
-  input-syslog-neuvector.conf: |
-    [INPUT]
-        Name   syslog
-        Mode   tcp
-        Listen 0.0.0.0
-        Port   5140
-        Parser syslog-neuvector
-        Tag    syslog.default
 {{- if .Values.enableAzurePlugin }}
+    @INCLUDE output-azure.conf
   output-azure.conf: |
     [OUTPUT]
         Name        azure
@@ -36,6 +28,14 @@ data:
         Customer_ID ${FLUENTBIT_AZURE_CUSTOMER_ID}
         Shared_Key  ${FLUENTBIT_AZURE_SHARED_KEY}
 {{- end }}
+  input-syslog-neuvector.conf: |
+    [INPUT]
+        Name   syslog
+        Mode   tcp
+        Listen 0.0.0.0
+        Port   5140
+        Parser syslog-neuvector
+        Tag    syslog.default
   output-stdout.conf: |
     [OUTPUT]
         Name        stdout
