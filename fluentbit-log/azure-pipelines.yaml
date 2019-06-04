@@ -21,8 +21,8 @@ jobs:
   steps:
   - template: steps/charts/validate.yaml@cnp-library
     parameters:
-      chartName: java
-      chartReleaseName: chart-java-ci-test
+      chartName: fluentbit-log
+      chartReleaseName: chart-fluentbit-log
       chartNamespace: chart-tests
 
 - job: Release
