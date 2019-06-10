@@ -26,3 +26,5 @@ enableSecret: false
 enableAzurePlugin: false
 
 enableStandardOutput: true
+
+logLevel: info

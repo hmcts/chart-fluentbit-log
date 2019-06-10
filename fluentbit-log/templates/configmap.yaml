@@ -9,7 +9,7 @@ data:
   fluent-bit.conf: |
     [SERVICE]
         Flush         1
-        Log_Level     info
+        Log_Level     {{ .Values.logLevel }}
         Daemon        off
         Parsers_File  parsers-neuvector.conf
         HTTP_Server   On
