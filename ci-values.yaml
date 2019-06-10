@@ -4,7 +4,7 @@ namespace: chart-tests
 image:
   registry: docker.io
   repository: fluent/fluent-bit
-  tag: 1.0.0
+  tag: 1.1.2
   imagePullPolicy: IfNotPresent
 
 resources:
