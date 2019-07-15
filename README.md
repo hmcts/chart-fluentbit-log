@@ -2,6 +2,8 @@
 
 Deploys [Fluent Bit](https://fluentbit.io/).  Tailored to collect security events from [NeuVector](https://neuvector.com/) and forward to an Azure Log Analytics workspace.
 
+This configuration uses the Fluent Bit syslog input plugin using the syslog-rfc5424 parser, which NeuVector supports by default.
+
 This deployment with expose two service:
 - **fluentbit-log** running on port **5140** - fluentbit will listen on this port and expect calls from nuevector
 - **fluentbit-log-web** running on port **2020** - fluentbit will expose API on this port whcih can be used from oher pod running inside the cluster
@@ -34,7 +36,7 @@ If you want to deploy using helm rather then flux make sure to set `enableSecret
 
 ## Azure DevOps Builds
 
-Builds are run against the 'nonprod' AKS cluster.
+Builds are run against the 'preview' AKS cluster.
 
 ### Pull Request Validation
 
